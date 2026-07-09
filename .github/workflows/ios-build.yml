@@ -1,0 +1,44 @@
+name: iOS Unsigned Build
+on:
+  workflow_dispatch: # Позволит запускать сборку кнопкой в браузере
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-level: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate iOS Project
+        run: npx expo prebuild --platform ios
+
+      - name: Build App for Real Device (Unsigned)
+        run: |
+          xcodebuild -workspace ios/*.xcworkspace \
+            -scheme BoeingMusic \
+            -configuration Release \
+            -sdk iphoneos \
+            -arch arm64 \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CONFIGURATION_BUILD_DIR=../build
+
+      - name: Create IPA Payload
+        run: |
+          mkdir -p Payload
+          cp -r build/BoeingMusic.app Payload/
+          zip -r boeing-music.ipa Payload
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: boeing-music-ipa
+          path: boeing-music.ipa

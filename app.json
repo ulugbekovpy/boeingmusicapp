@@ -1,29 +1,41 @@
 {
   "expo": {
-    "name": "boeing-music-app",
-    "slug": "boeing-music-app",
+    "name": "BoeingMusic",
+    "slug": "boeing-music",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ulugbekovdev.boeingmusic",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "audio",
+          "audio"
+        ],
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true
+      "supportsTablet": true,
+      "package": "com.ulugbekovdev.boeingmusic"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static",
+            "deploymentTarget": "15.1"
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "1b5291a1-63cc-4eb1-8afb-417da6f1fb9d"
+      }
+    },
+    "owner": "ulugbekovs"
   }
 }
