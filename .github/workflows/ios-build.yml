@@ -27,8 +27,10 @@ jobs:
             -configuration Release \
             -sdk iphoneos \
             -arch arm64 \
-            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=YES \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES \
             CONFIGURATION_BUILD_DIR=../build
 
       - name: Create IPA Payload
